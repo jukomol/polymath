@@ -1,0 +1,89 @@
+# Site settings
+title: "Modern Dev Blog"
+description: "A modern, fast, accessible blog powered by Jekyll and GitHub Pages"
+url: "https://jukomol.github.io"
+baseurl: "/blogs"
+author:
+  name: "jukomol"
+  email: "jukomol@users.noreply.github.com"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
+# Pagination
+paginate: 10
+paginate_path: "/page:num/"
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:year/:month/:day/:title/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - CONTRIBUTING.md
+  - SITE_GUIDE.md
+
+# GitHub Pages / Jekyll configuration
+github_username: jukomol
+repository: jukomol/blogs
+
+# Giscus configuration
+giscus:
+  repo: jukomol/blogs
+  repo_id: "" # Will be filled in when repo is configured
+  category: "General"
+  category_id: "" # Will be filled in when discussions are enabled
+  mapping: "pathname"
+  strict: "0"
+  reactions_enabled: "1"
+  emit_metadata: "0"
+  input_position: "bottom"
+  theme: "preferred_color_scheme"
+  lang: "en"
+
+# Site features
+features:
+  dark_mode: true
+  search: true
+  comments: true
+  
+# SEO and social
+twitter:
+  username: jukomol
+  card: summary_large_image
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "jukomol"
+      show_excerpts: true
+  - scope:
+      path: ""
+    values:
+      layout: "default"

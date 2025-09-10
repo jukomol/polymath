@@ -1,0 +1,80 @@
+---
+layout: default
+---
+
+<article class="post" data-pagefind-body>
+  <header class="post-header">
+    <div class="container">
+      {% if page.cover %}
+      <div class="post-cover">
+        <img src="{{ page.cover | relative_url }}" alt="{{ page.title | escape }}" loading="lazy">
+      </div>
+      {% endif %}
+      
+      <h1 class="post-title" data-pagefind-meta="title">{{ page.title | escape }}</h1>
+      
+      <div class="post-meta">
+        <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}" data-pagefind-meta="date">
+          {{ page.date | date: "%B %d, %Y" }}
+        </time>
+        
+        {% if page.author %}
+        <span class="post-author" data-pagefind-meta="author">
+          by {{ page.author | escape }}
+        </span>
+        {% endif %}
+        
+        {% if page.tags.size > 0 %}
+        <div class="post-tags" data-pagefind-meta="tags">
+          {% for tag in page.tags %}
+            <a href="/tags/#{{ tag | slugify }}" class="tag-chip">{{ tag }}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="post-reading-time">
+          {% assign words = content | number_of_words %}
+          {% assign reading_time = words | divided_by: 200 | plus: 1 %}
+          {{ reading_time }} min read
+        </div>
+      </div>
+      
+      {% if page.excerpt %}
+      <p class="post-excerpt">{{ page.excerpt | strip_html | escape }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="post-content">
+    <div class="container">
+      <div class="post-body">
+        {{ content }}
+      </div>
+      
+      <!-- Post navigation -->
+      <nav class="post-navigation" aria-label="Post navigation">
+        {% if page.previous.url %}
+        <a href="{{ page.previous.url | relative_url }}" class="post-nav-link post-nav-prev">
+          <span class="post-nav-label">&larr; Previous Post</span>
+          <span class="post-nav-title">{{ page.previous.title | escape }}</span>
+        </a>
+        {% endif %}
+        
+        {% if page.next.url %}
+        <a href="{{ page.next.url | relative_url }}" class="post-nav-link post-nav-next">
+          <span class="post-nav-label">Next Post &rarr;</span>
+          <span class="post-nav-title">{{ page.next.title | escape }}</span>
+        </a>
+        {% endif %}
+      </nav>
+    </div>
+  </div>
+</article>
+
+{% if site.features.comments and site.giscus %}
+<div class="post-comments">
+  <div class="container">
+    {% include giscus.html %}
+  </div>
+</div>
+{% endif %}

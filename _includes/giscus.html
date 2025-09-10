@@ -1,0 +1,37 @@
+{% if site.giscus.repo and site.giscus.repo_id %}
+<section class="comments-section" aria-labelledby="comments-heading">
+  <h3 id="comments-heading" class="comments-title">Comments</h3>
+  <div class="comments-container">
+    <script src="https://giscus.app/client.js"
+            data-repo="{{ site.giscus.repo }}"
+            data-repo-id="{{ site.giscus.repo_id }}"
+            data-category="{{ site.giscus.category }}"
+            data-category-id="{{ site.giscus.category_id }}"
+            data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+            data-strict="{{ site.giscus.strict | default: '0' }}"
+            data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
+            data-emit-metadata="{{ site.giscus.emit_metadata | default: '0' }}"
+            data-input-position="{{ site.giscus.input_position | default: 'bottom' }}"
+            data-theme="{{ site.giscus.theme | default: 'preferred_color_scheme' }}"
+            data-lang="{{ site.giscus.lang | default: 'en' }}"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+  <noscript>
+    <p class="comments-fallback">
+      Comments are powered by <a href="https://giscus.app" target="_blank" rel="noopener">Giscus</a>. 
+      Please enable JavaScript to view and participate in the discussion.
+    </p>
+  </noscript>
+</section>
+{% else %}
+<!-- Giscus not configured. Please set up your repository ID and category ID in _config.yml -->
+<section class="comments-section comments-disabled">
+  <h3 class="comments-title">Comments</h3>
+  <p class="comments-message">
+    Comments are not yet configured. Please check back later.
+  </p>
+</section>
+{% endif %}

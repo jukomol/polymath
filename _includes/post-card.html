@@ -1,0 +1,61 @@
+<article class="post-card{% if include.featured %} post-card-featured{% endif %}" data-tags="{{ include.post.tags | join: ',' | slugify }}">
+  {% if include.post.cover %}
+  <div class="post-card-image">
+    <a href="{{ include.post.url | relative_url }}" aria-label="Read {{ include.post.title | escape }}">
+      <img src="{{ include.post.cover | relative_url }}" alt="{{ include.post.title | escape }}" loading="lazy">
+    </a>
+    {% if include.post.featured %}
+    <span class="featured-badge" aria-label="Featured post">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+    </span>
+    {% endif %}
+  </div>
+  {% endif %}
+  
+  <div class="post-card-content">
+    <header class="post-card-header">
+      {% if include.post.tags.size > 0 %}
+      <div class="post-card-tags">
+        {% for tag in include.post.tags limit: 2 %}
+          <span class="tag-chip tag-chip-small">{{ tag }}</span>
+        {% endfor %}
+        {% if include.post.tags.size > 2 %}
+          <span class="tag-chip tag-chip-small tag-chip-more">+{{ include.post.tags.size | minus: 2 }}</span>
+        {% endif %}
+      </div>
+      {% endif %}
+      
+      <h3 class="post-card-title">
+        <a href="{{ include.post.url | relative_url }}">{{ include.post.title | escape }}</a>
+      </h3>
+    </header>
+    
+    <div class="post-card-meta">
+      <time class="post-card-date" datetime="{{ include.post.date | date_to_xmlschema }}">
+        {{ include.post.date | date: "%b %d, %Y" }}
+      </time>
+      
+      {% if include.post.author %}
+      <span class="post-card-author">by {{ include.post.author | escape }}</span>
+      {% endif %}
+      
+      <span class="post-card-reading-time">
+        {% assign words = include.post.content | number_of_words %}
+        {% assign reading_time = words | divided_by: 200 | plus: 1 %}
+        {{ reading_time }} min read
+      </span>
+    </div>
+    
+    {% if include.post.excerpt %}
+    <p class="post-card-excerpt">{{ include.post.excerpt | strip_html | truncate: 120 | escape }}</p>
+    {% endif %}
+    
+    <footer class="post-card-footer">
+      <a href="{{ include.post.url | relative_url }}" class="read-more-link">
+        Read more <span aria-hidden="true">&rarr;</span>
+      </a>
+    </footer>
+  </div>
+</article>

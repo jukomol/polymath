@@ -1,0 +1,290 @@
+name: Convert Issue to Blog Post
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled]
+
+permissions:
+  contents: write
+  issues: read
+  pull-requests: write
+
+jobs:
+  issue-to-post:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'post')
+    
+    steps:
+      - name: Check if user is collaborator
+        id: check-collaborator
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            try {
+              const response = await github.rest.repos.checkCollaborator({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: context.payload.issue.user.login
+              });
+              
+              // If we get here, user is a collaborator
+              core.setOutput('is-collaborator', 'true');
+              console.log(`User ${context.payload.issue.user.login} is a collaborator`);
+            } catch (error) {
+              if (error.status === 404) {
+                core.setOutput('is-collaborator', 'false');
+                console.log(`User ${context.payload.issue.user.login} is not a collaborator`);
+              } else {
+                throw error;
+              }
+            }
+
+      - name: Checkout repository
+        if: steps.check-collaborator.outputs.is-collaborator == 'true'
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate blog post from issue
+        if: steps.check-collaborator.outputs.is-collaborator == 'true'
+        id: generate-post
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            // Get issue data
+            const issue = context.payload.issue;
+            const issueNumber = issue.number;
+            const title = issue.title;
+            const body = issue.body || '';
+            const author = issue.user.login;
+            const createdAt = new Date(issue.created_at);
+            
+            // Extract tags from issue labels (exclude 'post' label)
+            const tags = issue.labels
+              .map(label => label.name)
+              .filter(name => name !== 'post')
+              .filter(name => !name.startsWith('status:'))
+              .slice(0, 5); // Limit to 5 tags
+
+            // Generate filename from title
+            const date = createdAt.toISOString().split('T')[0];
+            const slug = title
+              .toLowerCase()
+              .replace(/[^a-z0-9\s-]/g, '')
+              .replace(/\s+/g, '-')
+              .replace(/-+/g, '-')
+              .replace(/^-|-$/g, '');
+            
+            const filename = `${date}-${slug}.md`;
+            const filepath = path.join('_posts', filename);
+
+            // Check if post already exists
+            const existingFiles = fs.readdirSync('_posts');
+            const existingPost = existingFiles.find(file => 
+              file.includes(`-${slug}.md`) || file.includes(`issue-${issueNumber}-`)
+            );
+
+            let action = 'created';
+            let actualFilename = filename;
+
+            if (existingPost) {
+              // Update existing post
+              actualFilename = existingPost;
+              action = 'updated';
+              console.log(`Updating existing post: ${existingPost}`);
+            } else {
+              console.log(`Creating new post: ${filename}`);
+            }
+
+            // Extract excerpt from body
+            const excerpt = body
+              .replace(/^#{1,6}\s+/gm, '') // Remove markdown headers
+              .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove markdown links, keep text
+              .replace(/[*_`]/g, '') // Remove markdown formatting
+              .split('\n')
+              .filter(line => line.trim().length > 0)
+              .slice(0, 2)
+              .join(' ')
+              .substring(0, 160)
+              .trim();
+
+            // Generate front matter
+            const frontMatter = [
+              '---',
+              `layout: post`,
+              `title: "${title.replace(/"/g, '\\"')}"`,
+              `date: ${createdAt.toISOString()}`,
+              `author: ${author}`,
+              tags.length > 0 ? `tags: [${tags.map(tag => `"${tag}"`).join(', ')}]` : `tags: []`,
+              excerpt ? `excerpt: "${excerpt.replace(/"/g, '\\"')}"` : '',
+              `github_issue: ${issueNumber}`,
+              `---`,
+              ''
+            ].filter(line => line !== '').join('\n');
+
+            // Process body content
+            let content = body;
+            
+            // Convert GitHub issue references to proper links
+            content = content.replace(
+              /#(\d+)/g, 
+              `[#$1](https://github.com/${context.repo.owner}/${context.repo.repo}/issues/$1)`
+            );
+            
+            // Convert user mentions to GitHub links
+            content = content.replace(
+              /@([a-zA-Z0-9-]+)/g,
+              '[@$1](https://github.com/$1)'
+            );
+
+            // Add issue reference at the end
+            content += `\n\n---\n\n*This post was generated from [GitHub Issue #${issueNumber}](https://github.com/${context.repo.owner}/${context.repo.repo}/issues/${issueNumber}). You can view and comment on the original issue for discussions.*`;
+
+            // Write the complete post file
+            const postContent = frontMatter + '\n' + content;
+            
+            // Ensure _posts directory exists
+            if (!fs.existsSync('_posts')) {
+              fs.mkdirSync('_posts', { recursive: true });
+            }
+            
+            fs.writeFileSync(path.join('_posts', actualFilename), postContent);
+
+            // Set outputs
+            core.setOutput('filename', actualFilename);
+            core.setOutput('action', action);
+            core.setOutput('title', title);
+            core.setOutput('slug', slug);
+
+            console.log(`${action} post: ${actualFilename}`);
+
+      - name: Commit and push post
+        if: steps.check-collaborator.outputs.is-collaborator == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          git add "_posts/${{ steps.generate-post.outputs.filename }}"
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          git commit -m "${{ steps.generate-post.outputs.action == 'created' && 'Add' || 'Update' }} blog post: ${{ steps.generate-post.outputs.title }}
+
+          Generated from issue #${{ github.event.issue.number }}
+          Author: ${{ github.event.issue.user.login }}"
+          
+          git push
+
+      - name: Comment on issue (success)
+        if: steps.check-collaborator.outputs.is-collaborator == 'true' && success()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const filename = '${{ steps.generate-post.outputs.filename }}';
+            const action = '${{ steps.generate-post.outputs.action }}';
+            const slug = '${{ steps.generate-post.outputs.slug }}';
+            
+            // Calculate expected URL
+            const date = filename.split('-').slice(0, 3).join('/').replace('.md', '');
+            const postUrl = `https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${date}/${slug}/`;
+            
+            const message = action === 'created' 
+              ? `✅ **Blog post created successfully!**
+
+            Your issue has been converted into a blog post and will be published once the site rebuilds.
+
+            📝 **Post file:** \`_posts/${filename}\`
+            🔗 **Expected URL:** ${postUrl}
+            ⏱️ **Status:** Deploying (check the Actions tab for progress)
+
+            The post will be available on the blog shortly. Thank you for contributing!`
+              : `✅ **Blog post updated successfully!**
+
+            Your issue changes have been applied to the existing blog post and will be republished once the site rebuilds.
+
+            📝 **Post file:** \`_posts/${filename}\`
+            🔗 **URL:** ${postUrl}
+            ⏱️ **Status:** Deploying (check the Actions tab for progress)
+
+            Thank you for the update!`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
+      - name: Comment on issue (not collaborator)
+        if: steps.check-collaborator.outputs.is-collaborator == 'false'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **Permission denied**
+
+            Thank you for your interest in contributing! However, only repository collaborators can create blog posts by labeling issues with \`post\`.
+
+            If you'd like to contribute content, please:
+            1. Fork this repository
+            2. Create a blog post in the \`_posts/\` directory
+            3. Submit a pull request
+
+            Or reach out to the maintainers to discuss becoming a collaborator.`
+            });
+
+      - name: Comment on issue (failure)
+        if: steps.check-collaborator.outputs.is-collaborator == 'true' && failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **Failed to create blog post**
+
+            There was an error converting your issue to a blog post. Please check the [Actions tab](https://github.com/${{ github.repository }}/actions) for details.
+
+            Common issues:
+            - Invalid characters in the issue title
+            - Network connectivity problems
+            - Repository permissions
+
+            You can try again by removing and re-adding the \`post\` label, or contact the maintainers for assistance.`
+            });
+
+  cleanup-unlabeled:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'unlabeled' && github.event.label.name == 'post'
+    
+    steps:
+      - name: Comment on unlabeled issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `ℹ️ **Post label removed**
+
+            The \`post\` label has been removed from this issue. If a blog post was already created, it will remain published.
+
+            To republish or update the post, re-add the \`post\` label.`
+            });
