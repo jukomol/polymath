@@ -52,9 +52,9 @@ repository: jukomol/blogs
 # Giscus configuration
 giscus:
   repo: jukomol/blogs
-  repo_id: "" # Will be filled in when repo is configured
+  repo_id: "R_kgDOPtfN_w" # Will be filled in when repo is configured
   category: "General"
-  category_id: "" # Will be filled in when discussions are enabled
+  category_id: "DIC_kwDOPtfN_84CvQ02" # Will be filled in when discussions are enabled
   mapping: "pathname"
   strict: "0"
   reactions_enabled: "1"
