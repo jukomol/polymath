@@ -1,0 +1,79 @@
+---
+layout: default
+---
+
+<div class="home-hero">
+  <div class="container">
+    <h1 class="hero-title">{{ site.title | escape }}</h1>
+    <p class="hero-description">{{ site.description | escape }}</p>
+    
+    {% if site.features.search %}
+    <div class="hero-search">
+      <div id="search-container">
+        <input type="search" id="search-input" placeholder="Search posts..." aria-label="Search posts">
+        <div id="search-results"></div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="container">
+  <!-- Featured Posts -->
+  {% assign featured_posts = site.posts | where: "featured", true | limit: 3 %}
+  {% if featured_posts.size > 0 %}
+  <section class="featured-posts" aria-labelledby="featured-heading">
+    <h2 id="featured-heading" class="section-title">Featured Posts</h2>
+    <div class="posts-grid featured-grid">
+      {% for post in featured_posts %}
+        {% include post-card.html post=post featured=true %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Latest Posts -->
+  <section class="latest-posts" aria-labelledby="latest-heading">
+    <div class="section-header">
+      <h2 id="latest-heading" class="section-title">Latest Posts</h2>
+      
+      <!-- Tag Filter -->
+      {% assign all_tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
+      {% if all_tags.size > 0 %}
+      <div class="tag-filter">
+        <button class="tag-chip active" data-tag="all">All</button>
+        {% for tag in all_tags %}
+          {% unless tag == empty %}
+          <button class="tag-chip" data-tag="{{ tag | slugify }}">{{ tag }}</button>
+          {% endunless %}
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="posts-grid" id="posts-container">
+      {% for post in site.posts limit: 12 %}
+        {% include post-card.html post=post %}
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if paginator.total_pages > 1 %}
+    <nav class="pagination" aria-label="Pagination">
+      {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-btn pagination-prev">&larr; Previous</a>
+      {% endif %}
+      
+      <span class="pagination-info">
+        Page {{ paginator.page }} of {{ paginator.total_pages }}
+      </span>
+      
+      {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-btn pagination-next">Next &rarr;</a>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </section>
+</div>
+
+<script type="module" src="{{ '/assets/js/tag-filter.js' | relative_url }}"></script>
