@@ -51,18 +51,17 @@ repository: jukomol/blogs
 
 # Giscus configuration
 giscus:
-      data-repo="jukomol/blogs"
-      data-repo-id="R_kgDOPtfN_w"
-      data-category="General"
-      data-category-id="DIC_kwDOPtfN_84CvQ02"
-      data-mapping="pathname"
-      data-strict="0"
-      data-reactions-enabled="1"
-      data-emit-metadata="0"
-      data-input-position="bottom"
-      data-theme="preferred_color_scheme"
-      data-lang="en"
-      crossorigin="anonymous"
+  repo: "jukomol/blogs"
+  repo_id: "R_kgDOPtfN_w"
+  category: "General"
+  category_id: "DIC_kwDOPtfN_84CvQ02"
+  mapping: "pathname"
+  strict: "0"
+  reactions_enabled: "1"
+  emit_metadata: "0"
+  input_position: "bottom"
+  theme: "preferred_color_scheme"
+  lang: "en"
 
 # Site features
 features:
