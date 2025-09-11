@@ -96,21 +96,3 @@ jobs:
           configPath: './lighthouserc.json'
           uploadArtifacts: true
           temporaryPublicStorage: true
-
-  # Test Lighthouse CI job for PRs
-  lighthouse-test:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Test Lighthouse CI Configuration
-        uses: treosh/lighthouse-ci-action@v10
-        with:
-          urls: |
-            https://jukomol.github.io/blogs/
-            https://jukomol.github.io/blogs/2024/09/10/welcome-to-the-blog/
-          configPath: './lighthouserc.json'
-          uploadArtifacts: true
-          temporaryPublicStorage: true
