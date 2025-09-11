@@ -519,8 +519,9 @@ body {
 }
 
 .post-header {
-  padding: var(--spacing-2xl) 0;
+  padding: var(--spacing-2xl) var(--spacing-lg);
   background: var(--color-bg-secondary);
+  border-radius: 12px;
 }
 
 .post-cover {
