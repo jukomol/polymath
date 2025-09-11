@@ -94,5 +94,4 @@ jobs:
             ${{ needs.deploy.outputs.page_url }}
             ${{ needs.deploy.outputs.page_url }}/2024/09/10/welcome-to-the-blog/
           configPath: './lighthouserc.json'
-          uploadArtifacts: true
           temporaryPublicStorage: true
