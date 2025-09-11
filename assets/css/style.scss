@@ -235,15 +235,9 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--color-bg);
   z-index: 200;
   padding: var(--spacing-2xl);
-}
-
-[data-theme="dark"] .mobile-menu {
-  background: rgba(15, 23, 42, 0.95);
 }
 
 .mobile-menu-content {
