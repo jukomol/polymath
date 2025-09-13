@@ -235,9 +235,25 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--color-bg);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-bg);
   z-index: 200;
   padding: var(--spacing-2xl);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure backdrop covers everything */
+.mobile-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-bg);
+  z-index: -1;
 }
 
 .mobile-menu-content {
@@ -245,6 +261,8 @@ body {
   flex-direction: column;
   gap: var(--spacing-lg);
   margin-top: var(--spacing-2xl);
+  position: relative;
+  z-index: 1;
 }
 
 .mobile-nav-link {
