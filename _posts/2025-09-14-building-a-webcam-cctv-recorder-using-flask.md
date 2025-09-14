@@ -4,9 +4,8 @@ title: "Building a Webcam CCTV Recorder Using Flask"
 date: 2025-09-14T04:05:26.000Z
 author: jukomol
 tags: ["Tech"]
-excerpt: "--- layout: post"
 github_issue: 13
-cover: <img width="1495" height="848" alt="Image" src="https://github.com/user-attachments/assets/e8b1a501-a59d-4101-af9b-17a98db7191e" />
+cover: https://github.com/user-attachments/assets/e8b1a501-a59d-4101-af9b-17a98db7191e
 featured: true
 ---
 
