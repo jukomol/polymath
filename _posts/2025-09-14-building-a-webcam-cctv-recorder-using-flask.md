@@ -8,7 +8,6 @@ excerpt: "--- layout: post"
 github_issue: 13
 cover: <img width="1495" height="848" alt="Image" src="https://github.com/user-attachments/assets/e8b1a501-a59d-4101-af9b-17a98db7191e" />
 featured: true
-
 ---
 
 In this blog post, I walk you through the design and development of a lightweight CCTV system using a regular webcam and a Flask-based Python web app. This application serves live video through a web browser, records hourly footage automatically, and lets you view and download those recordings with ease.
