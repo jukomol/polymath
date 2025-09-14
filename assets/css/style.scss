@@ -426,6 +426,19 @@ body {
   justify-content: center;
 }
 
+.podcast-badge {
+  position: absolute;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  background: #9333ea;
+  color: white;
+  padding: var(--spacing-sm);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .post-card-content {
   padding: var(--spacing-lg);
 }
