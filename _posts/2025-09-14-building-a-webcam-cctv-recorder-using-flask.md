@@ -5,6 +5,7 @@ date: 2025-09-14T04:05:26.000Z
 author: jukomol
 tags: ["Tech"]
 github_issue: 13
+excerpt: In this blog post, I walk you through the design and development of a lightweight CCTV system using a regular webcam and a Flask-based Python web app.
 cover: https://github.com/user-attachments/assets/e8b1a501-a59d-4101-af9b-17a98db7191e
 featured: true
 ---
