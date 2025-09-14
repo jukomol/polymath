@@ -6,13 +6,8 @@ author: jukomol
 tags: ["Tech"]
 excerpt: "--- layout: post"
 github_issue: 13
----
----
-layout: post
-author: jukomol
-tags: [Tech]
-featured: true
 cover: <img width="1495" height="848" alt="Image" src="https://github.com/user-attachments/assets/e8b1a501-a59d-4101-af9b-17a98db7191e" />
+featured: true
 
 ---
 
