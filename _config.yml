@@ -1,11 +1,11 @@
 # Site settings
 title: "Modern Dev Blog"
-description: "A modern, fast, accessible blog powered by Jekyll and GitHub Pages"
+description: "Let's Explore"
 url: "https://jukomol.github.io"
 baseurl: "/blogs"
 author:
   name: "jukomol"
-  email: "jukomol@users.noreply.github.com"
+  email: "jahiruddinkomol@gmail.com"
 
 # Build settings
 markdown: kramdown
