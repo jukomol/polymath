@@ -5,7 +5,8 @@ date: 2025-01-15 10:00:00 -0000
 author: jukomol
 tags: [podcast, web-development, tutorial]
 excerpt: "This is a test post to demonstrate the podcast icon functionality. When a post contains the 'podcast' tag, it should display a podcast icon badge."
-cover: /assets/images/posts/welcome-banner.jpg
+cover: <img width="644" height="362" alt="image" src="https://github.com/user-attachments/assets/8c3bb4bb-652f-4391-b6cd-22f22a6e87d1" />
+
 ---
 
 This is a test post to demonstrate the podcast icon functionality. When a post contains the 'podcast' tag in its tags array, it should display a podcast icon badge on the post card.
