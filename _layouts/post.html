@@ -27,7 +27,7 @@ layout: default
         {% if page.tags.size > 0 %}
         <div class="post-tags" data-pagefind-meta="tags">
           {% for tag in page.tags %}
-            <a href="/tags/#{{ tag | slugify }}" class="tag-chip">{{ tag }}</a>
+            <a href="{{ site.baseurl }}/tags/#{{ tag | slugify }}" class="tag-chip">{{ tag }}</a>
           {% endfor %}
         </div>
         {% endif %}
