@@ -35,7 +35,7 @@ permalink: /about/
       <ul>
         <li><strong>GitHub:</strong> <a href="https://github.com/{{ site.github_username }}">@{{ site.github_username }}</a></li>
       </ul>
-      <p>Thanks for dropping by. I hope you find something that gets you thinking!</p>
+      <p>Thanks for dropping by.</p>
     </div>
   </div>
 </div>
