@@ -18,6 +18,7 @@ tags: [tag1, tag2, tag3]     # Required: Array of relevant tags
 excerpt: "Brief description" # Required: 1-2 sentence summary (max 160 chars)
 featured: false             # Optional: Set to true for featured posts
 cover: /assets/images/posts/filename.jpg  # Optional: Hero image path
+comments: true              # Optional: Control comments on this post (true/false)
 ---
 ```
 
@@ -34,6 +35,7 @@ cover: /assets/images/posts/filename.jpg  # Optional: Hero image path
 **Optional Fields:**
 - **`featured`**: Set to `true` to highlight on homepage (limit to 3 posts)
 - **`cover`**: Path to hero image (see [Image Guidelines](#image-guidelines))
+- **`comments`**: Set to `false` to disable comments on this post, `true` to explicitly enable them (defaults to enabled if not specified)
 - **`github_issue`**: Automatically added by Issue-to-Post workflow
 
 ### File Naming Convention
