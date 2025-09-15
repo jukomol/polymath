@@ -164,31 +164,31 @@ class Search {
         {
           title: "Test",
           excerpt: "This is a sample post to test the features with both tutorial content and podcast tag.",
-          url: "/blogs/2025/09/10/test/",
+          url: "/polymath/2025/09/10/test/",
           tags: "tutorial jekyll web-development formatting podcast"
         },
         {
           title: "Getting Started with Jekyll",
           excerpt: "Learn how to build static websites with Jekyll, the powerful static site generator.",
-          url: "/blogs/2024/09/08/getting-started-with-jekyll/",
+          url: "/polymath/2024/09/08/getting-started-with-jekyll/",
           tags: "jekyll tutorial web-development static-site"
         },
         {
           title: "Welcome to the Blog",
           excerpt: "Welcome to our new blog where we'll share insights about web development and technology.",
-          url: "/blogs/2024/09/10/welcome-to-the-blog/",
+          url: "/polymath/2024/09/10/welcome-to-the-blog/",
           tags: "welcome introduction blog"
         },
         {
           title: "Building a Webcam CCTV Recorder using Flask",
           excerpt: "Learn how to create a webcam CCTV recording system using Python Flask.",
-          url: "/blogs/2025/09/14/building-a-webcam-cctv-recorder-using-flask/",
+          url: "/polymath/2025/09/14/building-a-webcam-cctv-recorder-using-flask/",
           tags: "python flask webcam cctv tutorial"
         },
         {
           title: "Podcast Test",
           excerpt: "This is a test podcast post to check the podcast functionality.",
-          url: "/blogs/2025/01/15/podcast-test/",
+          url: "/polymath/2025/01/15/podcast-test/",
           tags: "podcast test audio"
         }
       ];

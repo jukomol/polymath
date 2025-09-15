@@ -67,7 +67,7 @@ A modern, fast, and accessible blog built with Jekyll and hosted on GitHub Pages
 
 4. **Open your browser**
    ```
-   http://localhost:4000/blogs
+   http://localhost:4000/polymath
    ```
 
 ### GitHub Pages Deployment
@@ -281,7 +281,7 @@ Committed to WCAG 2.1 AA compliance:
 npm install -g @axe-core/cli
 
 # Test accessibility
-axe http://localhost:4000/blogs
+axe http://localhost:4000/polymath
 
 # Or use browser extensions:
 # - axe DevTools

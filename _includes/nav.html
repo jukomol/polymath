@@ -24,6 +24,9 @@
       <a href="{{ '/about/' | relative_url }}" class="nav-link" {% if page.url contains '/about' %}aria-current="page"{% endif %}>
         About
       </a>
+      <a href="{{ '/terms-and-conditions/' | relative_url }}" class="nav-link" {% if page.url contains '/terms-and-conditions' %}aria-current="page"{% endif %}>
+        Terms
+      </a>
     </div>
     
     <div class="nav-actions">
@@ -64,6 +67,7 @@
       <a href="{{ '/search/' | relative_url }}" class="mobile-nav-link">Search</a>
       {% endif %}
       <a href="{{ '/about/' | relative_url }}" class="mobile-nav-link">About</a>
+      <a href="{{ '/terms-and-conditions/' | relative_url }}" class="mobile-nav-link">Terms</a>
     </div>
   </div>
 </nav>
