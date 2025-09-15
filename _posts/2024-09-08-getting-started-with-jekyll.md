@@ -5,6 +5,7 @@ date: 2024-09-08 10:00:00 -0000
 author: jukomol
 tags: [jekyll, tutorial, static-site, github-pages]
 excerpt: "Learn how to get started with Jekyll, the powerful static site generator that powers GitHub Pages. This comprehensive guide covers installation, configuration, and best practices."
+cover: /assets/images/posts/welcome-banner.jpg
 ---
 
 Jekyll is a fantastic static site generator that transforms your plain text files into beautiful, fast-loading websites. In this comprehensive guide, we'll walk through everything you need to know to get started with Jekyll.
