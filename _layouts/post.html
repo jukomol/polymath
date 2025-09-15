@@ -71,7 +71,7 @@ layout: default
   </div>
 </article>
 
-{% if site.features.comments and site.giscus %}
+{% if site.features.comments and site.giscus and page.comments != false %}
 <div class="post-comments">
   <div class="container">
     {% include giscus.html %}
