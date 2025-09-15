@@ -2,11 +2,8 @@
 layout: post
 title: "Terms and Conditions"
 permalink: /terms-and-conditions/
-description: "Terms and Conditions for Polymath blog"
+excerpt: "Terms and Conditions for Polymath blog"
 ---
-
-# Terms and Conditions
-
 Welcome to Polymath (the "Website"). By accessing and using this Website, you agree to comply with and be bound by the following Terms and Conditions. If you do not agree with any part of these terms, you must not use this Website.
 
 ## 1. Intellectual Property Rights
