@@ -10,9 +10,9 @@ permalink: /about/
       <h1 class="post-title">About Polymath</h1>
       <p class="post-excerpt">Exploring the world, one idea at a time.</p>
     </header>
+---
 
     <div class="post-body">
-
       <p>
       Hello, I'm Jahir Uddin, and I'm a bit obsessed with connecting the dots between things. You know, those moments where a concept from a sci-fi novel makes perfect sense in a discussion about deep learning, or a historical event sheds light on a modern political issue. That's what this blog is all about.</p>
       <p>The name "Polymath" might sound fancy, but it just means someone who loves to learn about a bunch of different things. I've built this little corner of the internet to share my journey and my thoughts across all the topics that grab my attention.</p>
