@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Terms and Conditions"
 permalink: /terms-and-conditions/
 description: "Terms and Conditions for Polymath blog"
