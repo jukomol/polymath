@@ -372,4 +372,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ and modern web technologies**
 
-[Live Demo](https://jukomol.github.io/blogs) • [Report Bug](https://github.com/jukomol/blogs/issues) • [Request Feature](https://github.com/jukomol/blogs/issues)
+[Live Demo](https://jukomol.github.io/polymath) • [Report Bug](https://github.com/jukomol/polymath/issues) • [Request Feature](https://github.com/jukomol/polymath/issues)
