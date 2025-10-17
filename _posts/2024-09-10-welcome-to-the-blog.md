@@ -5,7 +5,7 @@ date: 2024-09-10 19:00:00 -0000
 author: jukomol
 tags: [announcement, welcome, jekyll]
 excerpt: "Welcome to our new modern, fast, and accessible Jekyll blog hosted on GitHub Pages. This post demonstrates the key features and capabilities of our blogging platform."
-featured: false
+featured: true
 cover: /assets/images/posts/welcome-banner.jpg
 ---
 
